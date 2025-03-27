@@ -23,7 +23,7 @@ public class PlayerInput : MonoBehaviour
             animateCount++;
             _animator.SetTrigger(_hitAnimations[animateCount % _hitAnimations.Count]);
 
-            string pressedKey = Input.inputString;
+            string pressedKey = Input.inputString.ToUpper();
             Debug.Log(pressedKey);
             GameObject nearestNote = NoteManager.Instance.GetNearestNote(pressedKey);
             if (!ReferenceEquals(nearestNote, null))
