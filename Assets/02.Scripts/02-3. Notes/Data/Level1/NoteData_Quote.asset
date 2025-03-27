@@ -10,9 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfc4b76718b470145a80caa98ad0e7fb, type: 3}
-  m_Name: NoteData_Chip
+  m_Name: NoteData_Quote
   m_EditorClassIdentifier: 
-  NoteType: 0
+  NoteType: 3
+  CorrectInput: ''''
   Score: 100
   EarnableHealthPoint: 1
+  LoseableHealthPoint: 1
   EarnableFeverGauge: 1
+  LoseableFeverGauge: 1

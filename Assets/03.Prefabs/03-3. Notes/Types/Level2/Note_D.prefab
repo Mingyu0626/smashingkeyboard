@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5052458213405463190}
   - component: {fileID: 7735657110967432968}
   m_Layer: 0
-  m_Name: NoteChipType
+  m_Name: Note_D
   m_TagString: Note
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,5 +193,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63fc451a76057ff4492728ada06fa3ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _correctStringInput: D
-  _noteData: {fileID: 11400000, guid: b3ef5002ae3977a4c8deb37a65c88326, type: 2}
+  _noteData: {fileID: 11400000, guid: 1ea51998fa9b8e34b9211223dc87e433, type: 2}
+  _noteVFX: {fileID: 8771972552311404799, guid: 22d3f9e3f458ff04ab8ed782a60d70f1, type: 3}

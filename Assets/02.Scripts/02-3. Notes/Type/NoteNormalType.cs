@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class NoteChipType : Note
+public class NoteNormalType : Note
 {
 
     private void Update()

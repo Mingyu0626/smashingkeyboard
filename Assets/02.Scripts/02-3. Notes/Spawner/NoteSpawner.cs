@@ -19,11 +19,28 @@ public class NoteSpawner : MonoBehaviour
 {
     [SerializeField] private float _delayMin;
     [SerializeField] private float _delayMax;
+    [SerializeField] private int _level;
     [SerializeField] private NoteFactory _noteFactory;
 
-    private List<NoteSpawnProbability> _noteSpawnInfos = new List<NoteSpawnProbability>()
+    private List<List<NoteSpawnProbability>> _noteSpawnInfos = new List<List<NoteSpawnProbability>>()
     {
-        new NoteSpawnProbability(NoteType.Chip, 100)
+        new List<NoteSpawnProbability>()
+        {
+            new NoteSpawnProbability(NoteType.A, 25),
+            new NoteSpawnProbability(NoteType.S, 25),
+            new NoteSpawnProbability(NoteType.SemiColon, 25),
+            new NoteSpawnProbability(NoteType.Quote, 25),
+        },
+        new List<NoteSpawnProbability>()
+        {
+            new NoteSpawnProbability(NoteType.D, 50),
+            new NoteSpawnProbability(NoteType.L, 50),
+        },
+        new List<NoteSpawnProbability>()
+        {
+            new NoteSpawnProbability(NoteType.LeftShift, 50),
+            new NoteSpawnProbability(NoteType.RightShift, 50),
+        },
     };
 
     private void OnEnable()
@@ -33,11 +50,10 @@ public class NoteSpawner : MonoBehaviour
     }
     private IEnumerator Spawn()
     {
-        yield return new WaitForSeconds(0.1f);
         while (true)
         {
-            Note note = NotePool.Instance.GetObject(GetNextSpawnNote(), transform.position);
             yield return new WaitForSeconds(GetRandomSpawnIntervalTime());
+            Note note = NotePool.Instance.GetObject(GetNextSpawnNote(), transform.position);
         }
     }
     private float GetRandomSpawnIntervalTime()
@@ -48,7 +64,7 @@ public class NoteSpawner : MonoBehaviour
     {
         int randNum = Random.Range(0, 100);
         int probabilityPrefixSum = 0, enemyIndex = 0;
-        foreach (NoteSpawnProbability info in _noteSpawnInfos)
+        foreach (NoteSpawnProbability info in _noteSpawnInfos[_level - 1])
         {
             probabilityPrefixSum += info.Probability;
             if (randNum < probabilityPrefixSum)
@@ -57,6 +73,6 @@ public class NoteSpawner : MonoBehaviour
             }
             enemyIndex++;
         }
-        return NoteType.Chip;
+        return NoteType.A;
     }
 }

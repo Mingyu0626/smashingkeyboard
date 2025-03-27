@@ -2,9 +2,18 @@ using UnityEngine;
 
 public enum NoteType
 {
-    Chip,
-    Long,
-    Trill
+    A,
+    S,
+    SemiColon,
+    Quote,
+    D,
+    L,
+    LeftShift,
+    RightShift,
+
+
+
+    Count
 }
 
 public class NoteFactory : Factory<Note>
