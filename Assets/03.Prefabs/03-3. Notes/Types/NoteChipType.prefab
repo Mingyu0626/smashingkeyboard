@@ -193,4 +193,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63fc451a76057ff4492728ada06fa3ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _correctStringInput: D
   _noteData: {fileID: 11400000, guid: b3ef5002ae3977a4c8deb37a65c88326, type: 2}
