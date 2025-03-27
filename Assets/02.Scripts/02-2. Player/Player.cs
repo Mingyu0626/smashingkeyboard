@@ -20,4 +20,14 @@ public class Player : MonoBehaviour
     {
         
     }
+    public void IncreaseStat(int earnableHealthPoint, int earnableFeverGauge)
+    {
+        _playerData.CurrentHealthPoint += earnableHealthPoint;
+        _playerData.FeverGage += earnableFeverGauge;
+    }
+    public void DecreaseStat(int loseableHealthPoint, int loseableFeverGauge)
+    {
+        _playerData.CurrentHealthPoint += loseableHealthPoint;
+        _playerData.FeverGage += loseableFeverGauge;
+    }
 }
