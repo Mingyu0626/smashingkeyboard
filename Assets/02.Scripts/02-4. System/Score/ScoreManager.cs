@@ -30,12 +30,12 @@ public class ScoreManager : Singleton<ScoreManager>
         base.Awake();
     }
 
-    public void Success(int score, int earnableFeverGauge)
+    public void HitSuccess(int score)
     {
         CurrentCombo++;
         MaxCombo = Mathf.Max(CurrentCombo, MaxCombo);
     }
-    public void Fail()
+    public void HitFail()
     {
         CurrentCombo = 0;
     }
