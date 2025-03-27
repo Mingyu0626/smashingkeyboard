@@ -58,7 +58,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         }
         else
         {
-            GameObject rootManagerGO = GameObject.FindGameObjectWithTag("Manager");
+            GameObject rootManagerGO = GameObject.FindGameObjectWithTag(nameof(Tags.Manager));
             if (rootManagerGO != null)
             {
                 transform.SetParent(rootManagerGO.transform);

@@ -9,4 +9,7 @@ MainCamera,
 Player,
 GameController,
 DestroyZone,
+Note,
+Boss,
+Manager,
 }
