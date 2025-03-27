@@ -13,7 +13,7 @@ public class BackGround : MonoBehaviour
     {
         foreach (BackgroundData backgroundData in BackgroundDatas)
         {
-            backgroundData.Renderer = backgroundData.BackgroundGO.GetComponent<Renderer>();
+            backgroundData.Renderer = backgroundData.BackgroundGO.GetComponent<SpriteRenderer>();
             backgroundData.MaterialPropertyBlock = new MaterialPropertyBlock();
         }
     }
@@ -27,14 +27,21 @@ public class BackGround : MonoBehaviour
     {
         foreach (BackgroundData backgroundData in BackgroundDatas)
         {
-            // 방향을 구하고, 해당 방향으로 스크롤링 한다.
-            Vector2 direction = Vector2.right;
+            //// 방향을 구하고, 해당 방향으로 스크롤링 한다.
+            //Vector2 direction = Vector2.right;
+            //backgroundData.Offset += direction * backgroundData.ScrollSpeed * Time.deltaTime;
+
+            //// MPB에 변경값을 담고, Renderer의 Material에 해당 MPB를 적용한다.
+            //backgroundData.MaterialPropertyBlock.SetVector("_MainTex_ST",
+            //new Vector4(1, 1, backgroundData.Offset.x, backgroundData.Offset.y));
+            //backgroundData.Renderer.SetPropertyBlock(backgroundData.MaterialPropertyBlock);
+
+            // 배경 스크롤 방향 설정
+            Vector2 direction = Vector2.right; // 왼쪽으로 스크롤
             backgroundData.Offset += direction * backgroundData.ScrollSpeed * Time.deltaTime;
 
-            // MPB에 변경값을 담고, Renderer의 Material에 해당 MPB를 적용한다.
-            backgroundData.MaterialPropertyBlock.SetVector("_MainTex_ST",
-            new Vector4(1, 1, backgroundData.Offset.x, backgroundData.Offset.y));
-            backgroundData.Renderer.SetPropertyBlock(backgroundData.MaterialPropertyBlock);
+            // mainTextureOffset을 사용하여 배경 텍스처의 오프셋을 직접 수정
+            backgroundData.Renderer.material.mainTextureOffset = backgroundData.Offset;
         }
     }
 
@@ -60,11 +67,11 @@ public class BackgroundData
     [SerializeField] private GameObject _backgroundGO;
     [SerializeField] private float _scrollSpeed;
     private Vector2 _offset;
-    private Renderer _renderer;
+    private SpriteRenderer _renderer;
     private MaterialPropertyBlock _materialPropertyBlock;
     public GameObject BackgroundGO { get => _backgroundGO; set => _backgroundGO = value; }
     public float ScrollSpeed { get => _scrollSpeed; set => _scrollSpeed = value; }
     public Vector2 Offset { get => _offset; set => _offset = value; }
-    public Renderer Renderer { get => _renderer; set => _renderer = value; }
+    public SpriteRenderer Renderer { get => _renderer; set => _renderer = value; }
     public MaterialPropertyBlock MaterialPropertyBlock { get => _materialPropertyBlock; set => _materialPropertyBlock = value; }
 }

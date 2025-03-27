@@ -7,13 +7,8 @@ public class DestroyZone : MonoBehaviour
         if (other.CompareTag(nameof(Tags.Note)))
         {
             Note note = other.GetComponent<Note>();
-            ScoreManager.Instance.Fail();
-            Player.Instance.PlayerData.CurrentHealthPoint 
-                -= note.NoteData.LoseableHealthPoint;
-            Player.Instance.PlayerData.FeverGage
-                -= note.NoteData.LoseableFeverGauge;
-
-            NoteManager.Instance.onNoteMissed?.Invoke();
+            note.MissNote();
+            NoteManager.Instance.OnNoteMissed?.Invoke();
             NotePool.Instance.ReturnObject(note);
         }
     }

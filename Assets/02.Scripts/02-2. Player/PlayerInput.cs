@@ -1,16 +1,35 @@
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] private Animator _animator;
+    private Animator _animator;
     private Dictionary<int, string> _hitAnimations = new Dictionary<int, string>
     {
         {0, "LeftPunch"},
         {1, "Kick" }
     };
-    private int animateCount;
+    private int _animateCount;
+
+    private HashSet<string> _validInputSet = new HashSet<string>
+    {
+        // Lv1.
+        { "A" },
+        { "S" },
+        { ";" },
+        { "'" },
+
+        // Lv2.
+        { "D" },
+        { "L" },
+
+        // Lv3.
+        { "LeftShift" },
+        { "RightShift" },
+    };
+
+    public Animator Animator { get => _animator; }
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -20,16 +39,19 @@ public class PlayerInput : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
-            animateCount++;
-            _animator.SetTrigger(_hitAnimations[animateCount % _hitAnimations.Count]);
+            _animateCount++;
+            _animator.SetTrigger(_hitAnimations[_animateCount % _hitAnimations.Count]);
 
             string pressedKey = Input.inputString.ToUpper();
-            Debug.Log(pressedKey);
-            GameObject nearestNote = NoteManager.Instance.GetNearestNote(pressedKey);
-            if (!ReferenceEquals(nearestNote, null))
+            if (_validInputSet.Contains(pressedKey))
             {
-                Note note = nearestNote.GetComponent<Note>();
-                note.HitNote();
+                GameObject nearestNote = NoteManager.Instance.GetNearestNote(pressedKey);
+                if (!ReferenceEquals(nearestNote, null))
+                {
+                    Note note = nearestNote.GetComponent<Note>();
+                    note.HitNote();
+                }
+                return;
             }
         }
     }
