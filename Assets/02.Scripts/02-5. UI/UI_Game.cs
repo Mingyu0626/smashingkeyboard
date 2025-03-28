@@ -7,23 +7,32 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class UI_Game : Singleton<UI_Game>
 {
+
+    [Header("State")]
     [SerializeField] private float _refreshDelay;
     [SerializeField] private GameObject _hpBarGO;
     [SerializeField] private GameObject _feverBarGO;
     private Slider _hpBarSlider;
     private Slider _feverBarSlider;
-    private Image _hpBarImage;
-    private Image _feverBarImage;
 
+    [Header("Combo and Score")]
     [SerializeField] private TextMeshProUGUI _comboText;
     [SerializeField] private TextMeshProUGUI _scoreText;
 
-    [Header("Combo Animation")]
+    [Header("Combo Slide")]
     [SerializeField] private GameObject _panelCombo;
     private Vector3 _panelComboOriginalPosition;
+
+    [SerializeField] private GameObject _panelLevelUp;
+    private Vector3 _panelLevelUpOriginalPosition;
+
     [SerializeField] private float _panelMovingDistance = 1480f;
-    [SerializeField] private float _animationMoveTime = 0.1f;
-    [SerializeField] private float _animationCenterDelayTime = 1f;
+    [SerializeField] private float _panelMovingCenterDistance = 40f;
+    [SerializeField] private float _slideMoveTime = 0.1f;
+    [SerializeField] private float _slideCenterMoveTime = 1f;
+
+    [Header("Fever")]
+    [SerializeField] private TextMeshProUGUI _panelFeverReady;
 
     protected override void Awake()
     {
@@ -35,6 +44,7 @@ public class UI_Game : Singleton<UI_Game>
     {
         InitBarUI(Player.Instance.PlayerData.MaxHealthPoint);
         _panelComboOriginalPosition = _panelCombo.GetComponent<RectTransform>().position;
+        _panelLevelUpOriginalPosition = _panelLevelUp.GetComponent<RectTransform>().position;
     }
     public void InitBarUI(int maxHP)
     {
@@ -77,19 +87,19 @@ public class UI_Game : Singleton<UI_Game>
                 _comboText.rectTransform.localScale = Vector3.one;
             });
     }
-    public void ComboAnimation(int combo)
+    public void ComboPanelSlide(int combo)
     {
         _panelCombo.SetActive(true);
         RectTransform rectTransform = _panelCombo.GetComponent<RectTransform>();
-        rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + _panelMovingDistance, _animationMoveTime)
+        rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + _panelMovingDistance, _slideMoveTime)
             .SetEase(Ease.Linear)
             .OnComplete(() =>
             {
-                rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + 40f, _animationCenterDelayTime)
+                rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + _panelMovingCenterDistance, _slideCenterMoveTime)
                 .SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
-                    rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + _panelMovingDistance, _animationMoveTime)
+                    rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + _panelMovingDistance, _slideMoveTime)
                     .SetEase(Ease.Linear)
                     .OnComplete(() =>
                     {
@@ -99,5 +109,36 @@ public class UI_Game : Singleton<UI_Game>
                 });
 
             });
+    }
+    public void LevelUpPanelSlide()
+    {
+        _panelLevelUp.SetActive(true);
+        RectTransform rectTransform = _panelLevelUp.GetComponent<RectTransform>();
+        rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x - _panelMovingDistance, _slideMoveTime)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x - _panelMovingCenterDistance, _slideCenterMoveTime)
+                .SetEase(Ease.Linear)
+                .OnComplete(() =>
+                {
+                    rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x - _panelMovingDistance, _slideMoveTime)
+                    .SetEase(Ease.Linear)
+                    .OnComplete(() =>
+                    {
+                        _panelLevelUp.SetActive(false);
+                        rectTransform.position = _panelLevelUpOriginalPosition;
+                    });
+                });
+
+            });
+    }
+    public void FeverReadyPanelOn()
+    {
+        _panelFeverReady.DOFade(1f, 1f);
+    }
+    public void FeverReadyPanelOff()
+    {
+        _panelFeverReady.DOFade(0f, 1f);
     }
 }

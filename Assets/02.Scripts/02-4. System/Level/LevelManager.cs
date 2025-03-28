@@ -10,6 +10,7 @@ public class LevelManager : Singleton<LevelManager>
     public int MaxLevel { get => _maxLevel; }
 
     [SerializeField] private List<NoteSpawner> _spawnerList = new List<NoteSpawner>();
+    [SerializeField] private AudioSource _audioSourceLevelUp;
 
     protected override void Awake()
     {
@@ -33,7 +34,9 @@ public class LevelManager : Singleton<LevelManager>
     public void LevelUp()
     {
         _currentLevel++;
-        // 레벨업 안내 효과 넣어주면 될듯
+        UI_Game.Instance.LevelUpPanelSlide();
+        _audioSourceLevelUp.Play();
+        ActivateSpawner();
     }
     
 }

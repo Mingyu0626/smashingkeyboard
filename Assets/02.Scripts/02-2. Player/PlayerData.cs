@@ -9,6 +9,7 @@ public class PlayerData : MonoBehaviour
     [SerializeField] private GameObject _hitSuccessVFX;
     [SerializeField] private GameObject _hitFailVFX;
     [SerializeField] private Transform _vfxTransform;
+    [SerializeField] private AudioSource _audioSourceFeverReady;
     public int MaxHealthPoint { get => _maxHealthPoint;}
     public int CurrentHealthPoint 
     { 
@@ -18,7 +19,17 @@ public class PlayerData : MonoBehaviour
     public int FeverGauge 
     { 
         get => _feverGauge;
-        set => _feverGauge = Mathf.Clamp(value, 0, _feverGaugeMax);
+        set
+        {
+            if (_feverGauge == _feverGaugeMax) return;
+
+            _feverGauge = Mathf.Clamp(value, 0, _feverGaugeMax);
+            if (_feverGauge == _feverGaugeMax)
+            {
+                UI_Game.Instance.FeverReadyPanelOn();
+                _audioSourceFeverReady.Play();
+            }
+        }
     }
 
     public int FeverGuageMax { get => _feverGaugeMax; }

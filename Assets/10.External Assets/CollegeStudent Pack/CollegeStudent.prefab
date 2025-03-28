@@ -241,6 +241,7 @@ MonoBehaviour:
   _hitSuccessVFX: {fileID: 0}
   _hitFailVFX: {fileID: 0}
   _vfxTransform: {fileID: 0}
+  _feverReadySFX: {fileID: 0}
 --- !u!114 &3944143230727704086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,6 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a096f0f82ddbb464ab5ef23f598d5a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shakeCamera: {fileID: 0}
 --- !u!114 &6573490045680390739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +280,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _feverVFX: {fileID: 0}
+  _feverDuration: 0
+  _backGround: {fileID: 0}
+  _feverSFX: {fileID: 0}
 --- !u!1 &3026853655897758196
 GameObject:
   m_ObjectHideFlags: 0

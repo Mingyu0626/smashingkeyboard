@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class BackGround : MonoBehaviour
@@ -11,11 +12,7 @@ public class BackGround : MonoBehaviour
 
     private void Awake()
     {
-        foreach (BackgroundData backgroundData in BackgroundDatas)
-        {
-            backgroundData.Renderer = backgroundData.BackgroundGO.GetComponent<SpriteRenderer>();
-            backgroundData.MaterialPropertyBlock = new MaterialPropertyBlock();
-        }
+
     }
 
     private void Update()
@@ -23,25 +20,16 @@ public class BackGround : MonoBehaviour
         ScrollBackGround();
     }
 
+    private float x, y;
     private void ScrollBackGround()
     {
         foreach (BackgroundData backgroundData in BackgroundDatas)
         {
-            //// 방향을 구하고, 해당 방향으로 스크롤링 한다.
-            //Vector2 direction = Vector2.right;
-            //backgroundData.Offset += direction * backgroundData.ScrollSpeed * Time.deltaTime;
-
-            //// MPB에 변경값을 담고, Renderer의 Material에 해당 MPB를 적용한다.
-            //backgroundData.MaterialPropertyBlock.SetVector("_MainTex_ST",
-            //new Vector4(1, 1, backgroundData.Offset.x, backgroundData.Offset.y));
-            //backgroundData.Renderer.SetPropertyBlock(backgroundData.MaterialPropertyBlock);
-
-            // 배경 스크롤 방향 설정
-            Vector2 direction = Vector2.right; // 왼쪽으로 스크롤
-            backgroundData.Offset += direction * backgroundData.ScrollSpeed * Time.deltaTime;
-
-            // mainTextureOffset을 사용하여 배경 텍스처의 오프셋을 직접 수정
-            backgroundData.Renderer.material.mainTextureOffset = backgroundData.Offset;
+            backgroundData.BackgroundRawImage.uvRect
+                = new Rect
+                (backgroundData.BackgroundRawImage.uvRect.position 
+                + new Vector2(backgroundData.ScrollSpeed, 0f)
+                * Time.deltaTime, backgroundData.BackgroundRawImage.uvRect.size);
         }
     }
 
@@ -64,14 +52,10 @@ public class BackGround : MonoBehaviour
 [System.Serializable]
 public class BackgroundData
 {
-    [SerializeField] private GameObject _backgroundGO;
+    [SerializeField] private RawImage _backgroundRawImage;
     [SerializeField] private float _scrollSpeed;
     private Vector2 _offset;
-    private SpriteRenderer _renderer;
-    private MaterialPropertyBlock _materialPropertyBlock;
-    public GameObject BackgroundGO { get => _backgroundGO; set => _backgroundGO = value; }
+    public RawImage BackgroundRawImage { get => _backgroundRawImage; set => _backgroundRawImage = value; }
     public float ScrollSpeed { get => _scrollSpeed; set => _scrollSpeed = value; }
     public Vector2 Offset { get => _offset; set => _offset = value; }
-    public SpriteRenderer Renderer { get => _renderer; set => _renderer = value; }
-    public MaterialPropertyBlock MaterialPropertyBlock { get => _materialPropertyBlock; set => _materialPropertyBlock = value; }
 }

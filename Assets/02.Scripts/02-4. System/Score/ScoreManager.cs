@@ -8,17 +8,19 @@ public class ScoreManager : Singleton<ScoreManager>
     private bool _isFeverState = false;
     private int _feverStack = 1;
     private const int _feverStackMax = 5;
+    [SerializeField] private GameObject _comboVFX;
+    [SerializeField] private AudioSource _audioSourceCombo;
     public int CurrentScore 
     { 
         get => _currentScore; 
         set
         {   
             _currentScore = value;
-            if (_currentScore == 10000 || _currentScore == 100000)
+            if ((5000 <= _currentScore && LevelManager.Instance.CurrentLevel == 1) 
+                || (30000 <= _currentScore && LevelManager.Instance.CurrentLevel == 2))
             {
                 LevelManager.Instance.LevelUp();
             }
-
         }
     }
     public int CurrentCombo 
@@ -38,7 +40,8 @@ public class ScoreManager : Singleton<ScoreManager>
             if (_currentCombo == 50 || (0 < _currentCombo && _currentCombo % 100 == 0))
             {
                 // ActivateComboVFX();
-                UI_Game.Instance.ComboAnimation(_currentCombo);
+                UI_Game.Instance.ComboPanelSlide(_currentCombo);
+                _audioSourceCombo.Play();
             }
         }
     }
@@ -53,20 +56,16 @@ public class ScoreManager : Singleton<ScoreManager>
         }
     }
     public int FeverStackMAX { get => _feverStackMax; }
-
-    [SerializeField] private GameObject _comboVFX;
-
     protected override void Awake()
     {
         base.Awake();
-        _currentCombo = 49;
     }
     public void HitSuccess(int score)
     {
         CurrentCombo++;
         MaxCombo = Mathf.Max(CurrentCombo, MaxCombo);
-        if (_isFeverState) _currentScore += score * _feverStack;
-        else _currentScore += score;
+        if (_isFeverState) CurrentScore += score * _feverStack;
+        else CurrentScore += score;
 
         UI_Game.Instance.RefreshScore(_currentScore);
         UI_Game.Instance.RefreshCombo(_currentCombo);
