@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoteType: 5
   CorrectInput: L
-  Score: 100
+  Score: 300
   EarnableHealthPoint: 1
   LoseableHealthPoint: 1
-  EarnableFeverGauge: 1
+  EarnableFeverGauge: 3
   LoseableFeverGauge: 1

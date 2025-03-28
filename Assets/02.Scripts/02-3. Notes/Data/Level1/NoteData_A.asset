@@ -15,7 +15,7 @@ MonoBehaviour:
   NoteType: 0
   CorrectInput: A
   Score: 100
-  EarnableHealthPoint: 1
+  EarnableHealthPoint: 2
   LoseableHealthPoint: 1
-  EarnableFeverGauge: 1
+  EarnableFeverGauge: 2
   LoseableFeverGauge: 1

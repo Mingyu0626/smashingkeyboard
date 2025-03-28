@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoteType: 7
   CorrectInput: RightShift
-  Score: 100
+  Score: 600
   EarnableHealthPoint: 1
-  LoseableHealthPoint: 1
-  EarnableFeverGauge: 1
-  LoseableFeverGauge: 1
+  LoseableHealthPoint: 2
+  EarnableFeverGauge: 4
+  LoseableFeverGauge: 2
