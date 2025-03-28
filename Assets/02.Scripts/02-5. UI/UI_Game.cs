@@ -59,7 +59,7 @@ public class UI_Game : Singleton<UI_Game>
     }
     public void RefreshScore(int score)
     {
-        _scoreText.text = $"Score : {score:N0}";
+        _scoreText.text = $"SCORE : {score:N0}";
         _scoreText.rectTransform.DOScale(new Vector3(1.4f, 1.4f, 1.4f), 0.08f)
             .SetEase(Ease.OutBounce)
             .OnComplete(() =>
