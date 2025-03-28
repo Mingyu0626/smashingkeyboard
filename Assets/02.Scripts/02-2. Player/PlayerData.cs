@@ -15,7 +15,11 @@ public class PlayerData : MonoBehaviour
         get => _currentHealthPoint;
         set => _currentHealthPoint = Mathf.Clamp(value, 0, _maxHealthPoint);
     }
-    public int FeverGauge { get => _feverGauge; set => _feverGauge = value; }
+    public int FeverGauge 
+    { 
+        get => _feverGauge;
+        set => _feverGauge = Mathf.Clamp(value, 0, _feverGaugeMax);
+    }
 
     public int FeverGuageMax { get => _feverGaugeMax; }
     public GameObject HitSuccessVFX { get => _hitSuccessVFX; }

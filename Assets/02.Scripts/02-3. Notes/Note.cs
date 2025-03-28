@@ -12,9 +12,8 @@ public class Note : MonoBehaviour, IProduct
     {
         NoteManager.Instance.AddNote(_noteData.CorrectInput, gameObject);
         MoveType[] moveTypes = (MoveType[])System.Enum.GetValues(typeof(MoveType));
-        int randomIndex = Random.Range(0, moveTypes.Length - 1); // 마지막 Count 제외
+        int randomIndex = Random.Range(0, moveTypes.Length);
         _noteMoveType = moveTypes[randomIndex];
-        Debug.Log(_noteMoveType);
     }
     public void MissNote()
     {

@@ -5,14 +5,13 @@ public enum MoveType
 {
     Normal,
     Accel,
-    Count
 }
 
 public class NoteNormalType : Note
 {
     private Vector3 _targetPosition;
     [SerializeField] private float _moveDuration = 4f;
-
+    private Tweener _moveTween;
     private void OnEnable()
     {
         float targetY = Random.Range(0f, 7f);
@@ -34,15 +33,19 @@ public class NoteNormalType : Note
     private void Update()
     {
     }
+    private void OnDisable()
+    {
+        _moveTween?.Kill();
+    }
 
     private void MoveNormal()
     {
-        transform.DOMove(_targetPosition, _moveDuration)
+        _moveTween = transform.DOMove(_targetPosition, _moveDuration)
             .SetEase(Ease.Linear);
     }
     private void MoveAccel()
     {
-        transform.DOMove(_targetPosition, _moveDuration)
+        _moveTween = transform.DOMove(_targetPosition, _moveDuration)
             .SetEase(Ease.InSine);
     }
 }

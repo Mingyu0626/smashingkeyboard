@@ -18,6 +18,13 @@ public class UI_Game : Singleton<UI_Game>
     [SerializeField] private TextMeshProUGUI _comboText;
     [SerializeField] private TextMeshProUGUI _scoreText;
 
+    [Header("Combo Animation")]
+    [SerializeField] private GameObject _panelCombo;
+    private Vector3 _panelComboOriginalPosition;
+    [SerializeField] private float _panelMovingDistance = 1480f;
+    [SerializeField] private float _animationMoveTime = 0.1f;
+    [SerializeField] private float _animationCenterDelayTime = 1f;
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,6 +34,7 @@ public class UI_Game : Singleton<UI_Game>
     private void Start()
     {
         InitBarUI(Player.Instance.PlayerData.MaxHealthPoint);
+        _panelComboOriginalPosition = _panelCombo.GetComponent<RectTransform>().position;
     }
     public void InitBarUI(int maxHP)
     {
@@ -67,6 +75,29 @@ public class UI_Game : Singleton<UI_Game>
             .OnComplete(() =>
             {
                 _comboText.rectTransform.localScale = Vector3.one;
+            });
+    }
+    public void ComboAnimation(int combo)
+    {
+        _panelCombo.SetActive(true);
+        RectTransform rectTransform = _panelCombo.GetComponent<RectTransform>();
+        rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + _panelMovingDistance, _animationMoveTime)
+            .SetEase(Ease.Linear)
+            .OnComplete(() =>
+            {
+                rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + 40f, _animationCenterDelayTime)
+                .SetEase(Ease.Linear)
+                .OnComplete(() =>
+                {
+                    rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + _panelMovingDistance, _animationMoveTime)
+                    .SetEase(Ease.Linear)
+                    .OnComplete(() =>
+                    {
+                        _panelCombo.SetActive(false);
+                        rectTransform.position = _panelComboOriginalPosition;
+                    });
+                });
+
             });
     }
 }

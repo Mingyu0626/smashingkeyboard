@@ -5,14 +5,20 @@ public class ScoreManager : Singleton<ScoreManager>
     private int _currentScore;
     private int _currentCombo;
     private int _maxCombo;
-    private int _feverMultiple = 1;
-    private const int _feverMultipleMax = 5;
+    private bool _isFeverState = false;
+    private int _feverStack = 1;
+    private const int _feverStackMax = 5;
     public int CurrentScore 
     { 
         get => _currentScore; 
         set
-        {
-            _currentScore = (value * _feverMultiple);
+        {   
+            _currentScore = (value * _feverStack);
+            if (_currentScore == 10000 || _currentScore == 100000)
+            {
+                LevelManager.Instance.LevelUp();
+            }
+
         }
     }
     public int CurrentCombo 
@@ -20,28 +26,40 @@ public class ScoreManager : Singleton<ScoreManager>
         get => _currentCombo; 
         set
         {
-            _currentCombo = (value * _feverMultiple);
+            if (_isFeverState)
+            {
+                _currentCombo = value + _feverStack;
+            }
+            else
+            {
+                _currentCombo = value;
+            }
+
             if (_currentCombo == 50 || (0 < _currentCombo && _currentCombo % 100 == 0))
             {
-                ActivateComboVFX();
+                // ActivateComboVFX();
+                UI_Game.Instance.ComboAnimation(_currentCombo);
             }
         }
     }
     public int MaxCombo { get => _maxCombo; set => _maxCombo = value; }
-    public int FeverMultiple 
+    public bool IsFeverState { get => _isFeverState; set => _isFeverState = value; }
+    public int FeverStack 
     { 
-        get => _feverMultiple; 
+        get => _feverStack; 
         set
         {
-            _feverMultiple = Mathf.Clamp(value, 1, _feverMultipleMax);
+            _feverStack = Mathf.Clamp(value, 1, _feverStackMax);
         }
     }
-    public int FeverMultipleMAX { get => _feverMultipleMax; }
+    public int FeverStackMAX { get => _feverStackMax; }
+
     [SerializeField] private GameObject _comboVFX;
 
     protected override void Awake()
     {
         base.Awake();
+        _currentCombo = 49;
     }
 
     public void HitSuccess(int score)
@@ -55,11 +73,14 @@ public class ScoreManager : Singleton<ScoreManager>
     public void HitFail()
     {
         CurrentCombo = 0;
-        _feverMultiple = 1;
+        _feverStack = 1;
         UI_Game.Instance.RefreshCombo(_currentCombo);
     }
     public void ActivateComboVFX()
     {
-        Instantiate(_comboVFX);
+        if (!ReferenceEquals(_comboVFX, null))
+        {
+            Instantiate(_comboVFX);
+        }
     }
 }

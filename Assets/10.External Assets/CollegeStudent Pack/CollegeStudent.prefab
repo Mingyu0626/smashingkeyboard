@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 3595482889336514668}
   - component: {fileID: 3944143230727704086}
   - component: {fileID: 1077992314747675510}
+  - component: {fileID: 6573490045680390739}
   m_Layer: 0
   m_Name: CollegeStudent
   m_TagString: Untagged
@@ -239,6 +240,7 @@ MonoBehaviour:
   _feverGauge: 0
   _hitSuccessVFX: {fileID: 0}
   _hitFailVFX: {fileID: 0}
+  _vfxTransform: {fileID: 0}
 --- !u!114 &3944143230727704086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +265,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a096f0f82ddbb464ab5ef23f598d5a48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6573490045680390739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053518115102101880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c8a39752218f1b40853b8f70a94f64b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _feverVFX: {fileID: 0}
 --- !u!1 &3026853655897758196
 GameObject:
   m_ObjectHideFlags: 0

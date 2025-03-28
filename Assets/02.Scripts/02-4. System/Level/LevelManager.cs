@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
-    private int _currentLevel = 1;
+    private int _currentLevel = 3;
     public int CurrentLevel { get => _currentLevel; set => _currentLevel = value; }
     private const int _maxLevel = 3;
     public int MaxLevel { get => _maxLevel; }
@@ -24,7 +24,7 @@ public class LevelManager : Singleton<LevelManager>
     {
         foreach (NoteSpawner spawner in _spawnerList)
         {
-            if (spawner.MinLevelToActivate == _currentLevel)
+            if (spawner.MinLevelToActivate <= _currentLevel)
             {
                 spawner.gameObject.SetActive(true);
             }
@@ -33,6 +33,7 @@ public class LevelManager : Singleton<LevelManager>
     public void LevelUp()
     {
         _currentLevel++;
+        // 레벨업 안내 효과 넣어주면 될듯
     }
     
 }

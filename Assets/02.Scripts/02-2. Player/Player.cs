@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
         _playerData = GetComponent<PlayerData>();
         _playerData.CurrentHealthPoint = _playerData.MaxHealthPoint;
         _playerInput = GetComponent<PlayerInput>();
+        _playerData.FeverGauge = 99;
     }
     private void Start()
     {
@@ -38,11 +39,19 @@ public class Player : MonoBehaviour
         _playerData.FeverGauge -= loseableFeverGauge;
         Instantiate(_playerData.HitFailVFX, gameObject.transform.position + new Vector3(0f, 2f, 0f),
             gameObject.transform.rotation);
-        PlayerHitFailAnimation();
+        PlayHitFailAnimation();
         UI_Game.Instance.RefreshBarUI(_playerData.CurrentHealthPoint, _playerData.FeverGauge);
     }
-    private void PlayerHitFailAnimation()
+    private void PlayHitFailAnimation()
     {
         _playerInput.Animator.SetTrigger("HitFail");
+    }
+    public void PlayFeverAnimation()
+    {
+        _playerInput.Animator.SetBool("IsFever", true);
+    }
+    public void StopFeverAnimation()
+    {
+        _playerInput.Animator.SetBool("IsFever", false);
     }
 }

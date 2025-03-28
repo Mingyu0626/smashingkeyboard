@@ -10,7 +10,6 @@ public class PlayerInput : MonoBehaviour
         {1, "Kick" }
     };
     private int _animateCount;
-
     private HashSet<string> _validInputSet = new HashSet<string>
     {
         // Lv1.
@@ -28,21 +27,44 @@ public class PlayerInput : MonoBehaviour
         { "RightShift" },
     };
 
+    private Fever _fever;
+
     public Animator Animator { get => _animator; }
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _fever = GetComponent<Fever>();
     }
 
     private void Update()
     {
         if (Input.anyKeyDown)
         {
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                _fever.TryActivateFever();
+                return;
+            }
+
+
             _animateCount++;
             _animator.SetTrigger(_hitAnimations[_animateCount % _hitAnimations.Count]);
 
-            string pressedKey = Input.inputString.ToUpper();
+            string pressedKey;
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                pressedKey = "LeftShift";
+            }
+            else if (Input.GetKeyDown(KeyCode.RightShift))
+            {
+                pressedKey = "RightShift";
+            }
+            else
+            {
+                pressedKey = Input.inputString.ToUpper();
+            }
+
             if (_validInputSet.Contains(pressedKey))
             {
                 GameObject nearestNote = NoteManager.Instance.GetNearestNote(pressedKey);
@@ -51,7 +73,6 @@ public class PlayerInput : MonoBehaviour
                     Note note = nearestNote.GetComponent<Note>();
                     note.HitNote();
                 }
-                return;
             }
         }
     }

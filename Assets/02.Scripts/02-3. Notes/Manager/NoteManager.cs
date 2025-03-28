@@ -43,6 +43,11 @@ public class NoteManager : Singleton<NoteManager>
 
     public void DeleteNotesInList(string key)
     {
+        _noteDictionary[key].Sort(CompareByXPosition);
+        if (_noteDictionary[key].Count == 0)
+        {
+            return;
+        }
         GameObject nearestNote = _noteDictionary[key][_noteDictionary[key].Count - 1];
         _noteDictionary[key].RemoveAt(_noteDictionary[key].Count - 1);
     }
