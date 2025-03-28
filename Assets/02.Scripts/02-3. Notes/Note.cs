@@ -24,7 +24,6 @@ public class Note : MonoBehaviour, IProduct
     }
     public void HitNote()
     {
-        ScoreManager.Instance.CurrentScore += _noteData.Score;
         Player.Instance.IncreaseStat
             (_noteData.EarnableHealthPoint, _noteData.EarnableFeverGauge);
         ScoreManager.Instance.HitSuccess(_noteData.Score);
