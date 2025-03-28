@@ -8,7 +8,8 @@ public class DestroyZone : MonoBehaviour
         {
             Note note = other.GetComponent<Note>();
             note.MissNote();
-            NoteManager.Instance.OnNoteMissed?.Invoke();
+            string key = note.NoteData.CorrectInput;
+            NoteManager.Instance.DeleteNotesInList(key);
             NotePool.Instance.ReturnObject(note);
         }
     }

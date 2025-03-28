@@ -41,6 +41,12 @@ public class NoteManager : Singleton<NoteManager>
         return null;
     }
 
+    public void DeleteNotesInList(string key)
+    {
+        GameObject nearestNote = _noteDictionary[key][_noteDictionary[key].Count - 1];
+        _noteDictionary[key].RemoveAt(_noteDictionary[key].Count - 1);
+    }
+
     private int CompareByXPosition(GameObject a, GameObject b)
     {
         float diff = a.transform.position.x - b.transform.position.x;
