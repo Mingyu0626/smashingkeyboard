@@ -4,11 +4,17 @@ public class Note : MonoBehaviour, IProduct
 {
     [SerializeField] private NoteData _noteData;
     [SerializeField] private GameObject _noteVFX;
+    [SerializeField] private MoveType _noteMoveType;
     public NoteData NoteData { get => _noteData; set => _noteData = value; }
+    public MoveType NoteMoveType { get => _noteMoveType; set => _noteMoveType = value; }
 
     public void Init()
     {
         NoteManager.Instance.AddNote(_noteData.CorrectInput, gameObject);
+        MoveType[] moveTypes = (MoveType[])System.Enum.GetValues(typeof(MoveType));
+        int randomIndex = Random.Range(0, moveTypes.Length - 1); // 마지막 Count 제외
+        _noteMoveType = moveTypes[randomIndex];
+        Debug.Log(_noteMoveType);
     }
     public void MissNote()
     {
