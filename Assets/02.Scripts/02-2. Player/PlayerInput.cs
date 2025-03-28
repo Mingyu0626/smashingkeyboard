@@ -54,13 +54,9 @@ public class PlayerInput : MonoBehaviour
             _animator.SetTrigger(_hitAnimations[_animateCount % _hitAnimations.Count]);
 
             string pressedKey;
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
             {
-                pressedKey = "LeftShift";
-            }
-            else if (Input.GetKeyDown(KeyCode.RightShift))
-            {
-                pressedKey = "RightShift";
+                pressedKey = "Shift";
             }
             else
             {

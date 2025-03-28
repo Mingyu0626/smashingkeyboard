@@ -38,8 +38,7 @@ public class NoteSpawner : MonoBehaviour
         },
         new List<NoteSpawnProbability>()
         {
-            new NoteSpawnProbability(NoteType.LeftShift, 50),
-            new NoteSpawnProbability(NoteType.RightShift, 50),
+            new NoteSpawnProbability(NoteType.Shift, 100)
         },
     };
 

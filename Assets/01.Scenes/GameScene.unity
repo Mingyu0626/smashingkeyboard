@@ -986,9 +986,6 @@ MonoBehaviour:
   - ObjectEnumType: 6
     ObjectScriptType: {fileID: 7735657110967432968, guid: d7081f2fa72582f4eb5a037995c031a3, type: 3}
     Count: 20
-  - ObjectEnumType: 7
-    ObjectScriptType: {fileID: 7735657110967432968, guid: 4e98f1e7a4ee10d4ba6ad499291979e2, type: 3}
-    Count: 20
   _factory: {fileID: 1291925338}
 --- !u!1 &595544870
 GameObject:

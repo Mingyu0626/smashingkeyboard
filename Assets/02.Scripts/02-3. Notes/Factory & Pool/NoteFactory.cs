@@ -8,8 +8,7 @@ public enum NoteType
     Quote,
     D,
     L,
-    LeftShift,
-    RightShift,
+    Shift,
 
 
 
