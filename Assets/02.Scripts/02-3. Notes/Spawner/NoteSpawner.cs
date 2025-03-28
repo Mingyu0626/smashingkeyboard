@@ -19,7 +19,7 @@ public class NoteSpawner : MonoBehaviour
 {
     [SerializeField] private float _delayMin;
     [SerializeField] private float _delayMax;
-    [SerializeField] private int _level;
+    [SerializeField] private int _minLevelToActivate;
     [SerializeField] private NoteFactory _noteFactory;
 
     private List<List<NoteSpawnProbability>> _noteSpawnInfos = new List<List<NoteSpawnProbability>>()
@@ -43,10 +43,11 @@ public class NoteSpawner : MonoBehaviour
         },
     };
 
+    public int MinLevelToActivate { get => _minLevelToActivate; }
+
     private void OnEnable()
     {
         StartCoroutine(Spawn());
-
     }
     private IEnumerator Spawn()
     {
@@ -64,7 +65,7 @@ public class NoteSpawner : MonoBehaviour
     {
         int randNum = Random.Range(0, 100);
         int probabilityPrefixSum = 0, enemyIndex = 0;
-        foreach (NoteSpawnProbability info in _noteSpawnInfos[_level - 1])
+        foreach (NoteSpawnProbability info in _noteSpawnInfos[MinLevelToActivate - 1])
         {
             probabilityPrefixSum += info.Probability;
             if (randNum < probabilityPrefixSum)
