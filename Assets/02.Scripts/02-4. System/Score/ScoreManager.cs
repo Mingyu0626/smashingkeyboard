@@ -13,7 +13,7 @@ public class ScoreManager : Singleton<ScoreManager>
         get => _currentScore; 
         set
         {   
-            _currentScore = (value * _feverStack);
+            _currentScore = value;
             if (_currentScore == 10000 || _currentScore == 100000)
             {
                 LevelManager.Instance.LevelUp();
@@ -61,12 +61,13 @@ public class ScoreManager : Singleton<ScoreManager>
         base.Awake();
         _currentCombo = 49;
     }
-
     public void HitSuccess(int score)
     {
         CurrentCombo++;
         MaxCombo = Mathf.Max(CurrentCombo, MaxCombo);
-        _currentScore += score;
+        if (_isFeverState) _currentScore += score * _feverStack;
+        else _currentScore += score;
+
         UI_Game.Instance.RefreshScore(_currentScore);
         UI_Game.Instance.RefreshCombo(_currentCombo);
     }
