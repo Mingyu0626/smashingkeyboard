@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
-    private int _currentLevel = 3;
+    [SerializeField] private int _currentLevel;
     public int CurrentLevel { get => _currentLevel; set => _currentLevel = value; }
     private const int _maxLevel = 3;
     public int MaxLevel { get => _maxLevel; }
