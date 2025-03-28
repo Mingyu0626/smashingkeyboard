@@ -23,8 +23,7 @@ public class PlayerInput : MonoBehaviour
         { "L" },
 
         // Lv3.
-        { "LeftShift" },
-        { "RightShift" },
+        { "Shift" }
     };
 
     private Fever _fever;
