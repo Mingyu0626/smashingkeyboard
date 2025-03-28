@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
         _playerData = GetComponent<PlayerData>();
         _playerData.CurrentHealthPoint = _playerData.MaxHealthPoint;
         _playerInput = GetComponent<PlayerInput>();
-        _playerData.FeverGauge = 99;
     }
     private void Start()
     {

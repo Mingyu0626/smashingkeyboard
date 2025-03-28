@@ -29,6 +29,7 @@ public class PlayerInput : MonoBehaviour
 
     private Fever _fever;
     [SerializeField] private ShakeCamera _shakeCamera;
+    [SerializeField] private AudioSource _audioSourceHit;
 
     public Animator Animator { get => _animator; }
 
@@ -73,9 +74,17 @@ public class PlayerInput : MonoBehaviour
                 {
                     Note note = nearestNote.GetComponent<Note>();
                     note.HitNote();
+                    PlayHitAudio();
                     _shakeCamera.Shake(0.1f, 1f);
                 }
             }
         }
+    }
+
+    private void PlayHitAudio()
+    {
+        Player.Instance.PlayerData.HitClipIndex++;
+        _audioSourceHit.PlayOneShot(Player.Instance.PlayerData.HitClips
+            [Player.Instance.PlayerData.HitClipIndex]);
     }
 }

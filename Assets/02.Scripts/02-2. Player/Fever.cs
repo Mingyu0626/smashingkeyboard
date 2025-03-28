@@ -10,7 +10,6 @@ public class Fever : MonoBehaviour
     [SerializeField] private float _feverDuration;
     [SerializeField] private BackGround _backGround;
     [SerializeField] private AudioSource _audioSourceFever;
-
     private void Awake()
     {
         _playerData = GetComponent<PlayerData>();

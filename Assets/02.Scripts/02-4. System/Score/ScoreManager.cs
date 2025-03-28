@@ -6,8 +6,8 @@ public class ScoreManager : Singleton<ScoreManager>
     private int _currentCombo;
     private int _maxCombo;
     private bool _isFeverState = false;
-    private int _feverStack = 1;
-    private const int _feverStackMax = 5;
+    private int _feverStack = 0;
+    private const int _feverStackMax = 4;
     [SerializeField] private GameObject _comboVFX;
     [SerializeField] private AudioSource _audioSourceCombo;
     public int CurrentScore 
@@ -28,7 +28,7 @@ public class ScoreManager : Singleton<ScoreManager>
         get => _currentCombo; 
         set
         {
-            if (_isFeverState)
+            if (_isFeverState && value != 0)
             {
                 _currentCombo = value + _feverStack;
             }

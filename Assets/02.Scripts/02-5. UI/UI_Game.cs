@@ -90,6 +90,8 @@ public class UI_Game : Singleton<UI_Game>
     public void ComboPanelSlide(int combo)
     {
         _panelCombo.SetActive(true);
+        _panelCombo.GetComponent<TextMeshProUGUI>()
+            .text = $"{ScoreManager.Instance.CurrentCombo}\nCombo!!";
         RectTransform rectTransform = _panelCombo.GetComponent<RectTransform>();
         rectTransform.DOAnchorPosX(rectTransform.anchoredPosition.x + _panelMovingDistance, _slideMoveTime)
             .SetEase(Ease.Linear)
