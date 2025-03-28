@@ -28,6 +28,7 @@ public class PlayerInput : MonoBehaviour
     };
 
     private Fever _fever;
+    [SerializeField] private ShakeCamera _shakeCamera;
 
     public Animator Animator { get => _animator; }
 
@@ -72,6 +73,7 @@ public class PlayerInput : MonoBehaviour
                 {
                     Note note = nearestNote.GetComponent<Note>();
                     note.HitNote();
+                    _shakeCamera.Shake(0.1f, 1f);
                 }
             }
         }

@@ -14,8 +14,8 @@ public class ShakeCamera : MonoBehaviour
         float elapsedTime = 0.0f;
         while (elapsedTime < duration)
         {
-            float x = Random.Range(-1f, 1f) * magnitude;
-            float y = Random.Range(-1f, 1f) * magnitude;
+            float x = Random.Range(-0.5f, 0.5f) * magnitude;
+            float y = Random.Range(-0.5f, 0.5f) * magnitude;
             transform.localPosition = _originalPosition + new Vector3(x, y, 0);
 
             elapsedTime += Time.deltaTime;
